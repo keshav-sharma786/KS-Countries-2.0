@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <>
-      <header className="header-container" style={{backgroundColor: "wheat"}}>
+      <header className="header-container" style={{backgroundColor: "#98694D"}}>
         <div className="header-content">
           <h2 className="title">
             <a href="/">KS Countries Info</a>

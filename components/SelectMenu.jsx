@@ -1,6 +1,6 @@
 export default function SelectMenu() {
   return (
-    <select className="filter-by-region" style={{backgroundColor: "wheat"}}>
+    <select className="filter-by-region" style={{backgroundColor: "#98694D", border: "3px solid #553d3a"}}>
       <option hidden="">Filter By Region</option>
       <option value="Africa">Africa</option>
       <option value="America">America</option>
