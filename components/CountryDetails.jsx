@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function CountryDetails() {
   // basically I want to fetch the name from the url parameters
@@ -6,21 +6,28 @@ export default function CountryDetails() {
   console.log(countryName);
   // now after getting the country name from the url, by using country name we have to fetch the individual country by sending a network request to the api using fetch
   // for fetching we will basically use the useEffect hook.
-  let countryFlag;
+  // for showing the country data we will basically use the useState Hook.
+  const[countryData, setCountryData] = useState(null);
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`).then((resObj) => {
       return resObj.json();
-    }).then((countryData) => {
+    }).then(([data]) => {
       // we basically have countryData as an array of object.
       // console.log(countryData[0].flags.png);
-      countryFlag = countryData[0].flags.png;
-      console.log(countryFlag);
+      console.log(data);
+      setCountryData({
+        name: data.name.common,
+        nativeName: Object.values(data.name.nativeName)[0].common,
+        population: data.population,
+      })
     })
-  })
+  }, []);
   return (
+    countryData &&
     // so before showing the country details let us show our header 
     // header component to be shown befor each country detail
     <>
+    
     <header className="header-container" style={{backgroundColor: "#98694D"}}>
         <div className="header-content">
           <h2 className="title">
@@ -40,16 +47,16 @@ export default function CountryDetails() {
           &nbsp; Back
         </span>
         <div className="country-details">
-          <img src= {countryFlag} style={{height: "500px", width: "500px", backgroundColor: "maroon"}} alt="" className="glitter" />
+          <img src="/" alt="image not found" />
           <div className="details-text-container">
-            <h1 />
+            <h1>{countryData.name}</h1>
             <div className="details-text">
               <p>
-                <b>Native Name: </b>
+                <b>Native Name: {countryData.nativeName}</b>
                 <span className="native-name" />
               </p>
               <p>
-                <b>Population: </b>
+                <b>Population: {countryData.population.toLocaleString('en-In')}</b>
                 <span className="population" />
               </p>
               <p>
