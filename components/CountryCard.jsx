@@ -8,8 +8,9 @@ export default function CountryCard(props) {
   const {region} = props;
   const {capital} = props;
   return (
-    <a href="/" className="country-card">
-      
+    <>
+    <a href={`/country?name=${name}`}className="country-card">
+      {/* so above here name.common will be undefined early */}
       <img src={flag} alt="flag" />
       <div className="card-text">
         <h3 className="card-title">{name}</h3>
@@ -24,5 +25,6 @@ export default function CountryCard(props) {
         </p>
       </div>
     </a>
+    </>
   );
 }

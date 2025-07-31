@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function CountryDetails() {
+  // basically I want to fetch the name from the url parameters
+  const countryName = new URLSearchParams(location.search).get('name');
+  console.log(countryName);
+  // now after getting the country name from the url, by using country name we have to fetch the individual country by sending a network request to the api using fetch
+  // for fetching we will basically use the useEffect hook.
+  let countryFlag;
+  useEffect(() => {
+    fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`).then((resObj) => {
+      return resObj.json();
+    }).then((countryData) => {
+      // we basically have countryData as an array of object.
+      // console.log(countryData[0].flags.png);
+      countryFlag = countryData[0].flags.png;
+      console.log(countryFlag);
+    })
+  })
   return (
+    // so before showing the country details let us show our header 
+    // header component to be shown befor each country detail
+    <>
+    <header className="header-container" style={{backgroundColor: "#98694D"}}>
+        <div className="header-content">
+          <h2 className="title">
+            <a href="/">KS Countries Info</a>
+          </h2>
+          <p className="theme-changer">
+            <i className="fa-regular fa-moon" />
+            &nbsp;&nbsp;Dark Mode
+          </p>
+          <i className="fa-solid fa-sun" id="light" />
+        </div>
+      </header>
     <main>
       <div className="country-details-container">
         <span className="back-button">
@@ -9,7 +40,7 @@ export default function CountryDetails() {
           &nbsp; Back
         </span>
         <div className="country-details">
-          <img src="/" alt="" className="glitter" />
+          <img src= {countryFlag} style={{height: "500px", width: "500px", backgroundColor: "maroon"}} alt="" className="glitter" />
           <div className="details-text-container">
             <h1 />
             <div className="details-text">
@@ -53,5 +84,7 @@ export default function CountryDetails() {
         </div>
       </div>
     </main>
-  );
+    </>
+  )
 }
+
