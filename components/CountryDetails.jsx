@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import './CountryDetails.css';
+
 export default function CountryDetails() {
   // basically I want to fetch the name from the url parameters
   const countryName = new URLSearchParams(location.search).get('name');
@@ -19,11 +21,21 @@ export default function CountryDetails() {
         name: data.name.common,
         nativeName: Object.values(data.name.nativeName)[0].common,
         population: data.population,
+        region: data.region,
+        subregion: data.subregion,
+        capital: data.capital,
+        flag: data.flags.svg,
+        tld: data.tld,
+        currencies: Object.values(data.currencies).map((currency) => currency.name).join(', '),
+        languages: Object.values(data.languages).join(', '),
       })
     })
   }, []);
-  return (
-    countryData &&
+  return countryData == null ?(
+    'loading....'
+  
+   ) : (
+    
     // so before showing the country details let us show our header 
     // header component to be shown befor each country detail
     <>
@@ -47,7 +59,7 @@ export default function CountryDetails() {
           &nbsp; Back
         </span>
         <div className="country-details">
-          <img src="/" alt="image not found" />
+          <img src={countryData.flag} alt={`${countryData.name}`} />
           <div className="details-text-container">
             <h1>{countryData.name}</h1>
             <div className="details-text">
@@ -60,27 +72,27 @@ export default function CountryDetails() {
                 <span className="population" />
               </p>
               <p>
-                <b>Region: </b>
+                <b>Region: {countryData.region}</b>
                 <span className="region" />
               </p>
               <p>
-                <b>Sub Region: </b>
+                <b>Sub Region: {countryData.subregion}</b>
                 <span className="sub-region" />
               </p>
               <p>
-                <b>Capital: </b>
+                <b>Capital: {countryData.capital}</b>
                 <span className="capital" />
               </p>
               <p>
-                <b>Top Level Domain: </b>
+                <b>Top Level Domain: {countryData.tld}</b>
                 <span className="top-level-domain" />
               </p>
               <p>
-                <b>Currencies: </b>
+                <b>Currencies: {countryData.currencies}</b>
                 <span className="currencies" />
               </p>
               <p>
-                <b>Languages: </b>
+                <b>Languages: {countryData.languages}</b>
                 <span className="languages" />
               </p>
             </div>
