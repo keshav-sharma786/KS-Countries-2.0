@@ -5,6 +5,7 @@ import Error from "./components/Error";
 import CountryDetails from "/components/CountryDetails";
 import Header from "/components/Header";
 // using the react-router in react js
+// we will also implement the dynamic routing in this project.
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,8 +19,8 @@ const router = createBrowserRouter([
     // ],
   },
   {
-    
-    path: "/country",
+    // we are going to do the dynamic routing in the country route.
+    path: "/:country",
     element: <CountryDetails />,
   }
 ]);

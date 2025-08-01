@@ -1,3 +1,6 @@
+import { Link } from "react-router";
+
+
 export default function CountryCard(props) {
 //   console.log(props);
   // deconstructing country's name from the props object
@@ -9,7 +12,7 @@ export default function CountryCard(props) {
   const {capital} = props;
   return (
     <>
-    <a href={`/country?name=${name}`}className="country-card">
+    <Link to={`/${name}`}className="country-card">
       {/* so above here name.common will be undefined early */}
       <img src={flag} alt="flag" />
       <div className="card-text">
@@ -24,7 +27,7 @@ export default function CountryCard(props) {
           <b>Capital: </b>{capital}
         </p>
       </div>
-    </a>
+    </Link>
     </>
   );
 }

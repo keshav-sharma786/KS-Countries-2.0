@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 import './CountryDetails.css';
+import { useParams } from "react-router";
 
 export default function CountryDetails() {
   // basically I want to fetch the name from the url parameters
-  const countryName = new URLSearchParams(location.search).get('name');
+  // for implementing the dynamic routing we basically have to use the useParams hook provided by the react-router dom.
+  const params = useParams();
+  const countryName = params.country;
   console.log(countryName);
   // now after getting the country name from the url, by using country name we have to fetch the individual country by sending a network request to the api using fetch
   // for fetching we will basically use the useEffect hook.
   // for showing the country data we will basically use the useState Hook.
   const[countryData, setCountryData] = useState(null);
+  // making a state basically for the country not found
+  const [notFound, setNotFound] = useState(false);
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`).then((resObj) => {
       return resObj.json();
@@ -29,8 +34,15 @@ export default function CountryDetails() {
         currencies: Object.values(data.currencies).map((currency) => currency.name).join(', '),
         languages: Object.values(data.languages).join(', '),
       })
+    }).catch((err) => {
+      setNotFound(true);
     })
   }, []);
+  if(notFound) {
+    return (
+      <div>Country Not Found</div>
+    )
+  }
   return countryData == null ?(
     'loading....'
   
@@ -80,7 +92,7 @@ export default function CountryDetails() {
                 <span className="sub-region" />
               </p>
               <p>
-                <b>Capital: {countryData.capital}</b>
+                <b>Capital: {countryData.capital.join(' ')}</b>
                 <span className="capital" />
               </p>
               <p>
