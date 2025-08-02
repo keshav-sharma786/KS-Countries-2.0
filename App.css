@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -5,6 +6,7 @@
 /* Css variables */
 
 body {
+  font-family: 'Fira Code', monospace;
   --background-color: aliceblue;
   --text-color: black;
   --elements-color: aliceblue;
