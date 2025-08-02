@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import './CountryDetails.css';
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 export default function CountryDetails() {
   // basically I want to fetch the name from the url parameters
@@ -33,11 +33,28 @@ export default function CountryDetails() {
         tld: data.tld,
         currencies: Object.values(data.currencies).map((currency) => currency.name).join(', '),
         languages: Object.values(data.languages).join(', '),
+        borders: [],
       })
+      
+      if(!data.borders) {
+        data.borders = [];
+      }
+
+      Promise.all(data.borders.map((border) => {
+        return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
+        .then((res) => res.json())
+        .then(([borderCountry]) =>
+          // here we will basically get the array of promises
+          // in case of the array of the promises we can basically use the Promise.all() method.
+          borderCountry.name.common);
+      })).then((borders) => {
+        setCountryData((prevState) => ({...prevState, borders}))
+      })
+
     }).catch((err) => {
       setNotFound(true);
     })
-  }, []);
+  }, [countryName]);
   if(notFound) {
     return (
       <div>Country Not Found</div>
@@ -66,7 +83,7 @@ export default function CountryDetails() {
       </header>
     <main>
       <div className="country-details-container">
-        <span className="back-button">
+        <span className="back-button" onClick={() => history.back()}>
           <i className="fa-solid fa-arrow-left" />
           &nbsp; Back
         </span>
@@ -108,9 +125,14 @@ export default function CountryDetails() {
                 <span className="languages" />
               </p>
             </div>
-            <div className="border-countries">
+            {countryData.borders.length !== 0 && <div className="border-countries">
               <b>Border Countries: </b>&nbsp;
-            </div>
+              {
+                countryData.borders.map((border) => {
+                  return <Link style={{border: "2px solid white"}} key={border} to={`/${border}`}>{border}</Link>
+                })
+              }
+            </div>}
           </div>
         </div>
       </div>
