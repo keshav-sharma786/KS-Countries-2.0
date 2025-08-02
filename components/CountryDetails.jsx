@@ -9,7 +9,7 @@ export default function CountryDetails() {
   const params = useParams();
   
   const countryName = params.country;
-  console.log(countryName);
+  // console.log(countryName);
   // now after getting the country name from the url, by using country name we have to fetch the individual country by sending a network request to the api using fetch
   // for fetching we will basically use the useEffect hook.
   // for showing the country data we will basically use the useState Hook.
@@ -22,7 +22,7 @@ export default function CountryDetails() {
     }).then(([data]) => {
       // we basically have countryData as an array of object.
       // console.log(countryData[0].flags.png);
-      console.log(data);
+      // console.log(data);
       setCountryData({
         name: data.name.common,
         nativeName: Object.values(data.name.nativeName)[0].common,
