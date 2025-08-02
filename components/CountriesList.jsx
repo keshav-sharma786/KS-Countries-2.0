@@ -39,7 +39,7 @@ export default function CountriesList(props) {
     ) : (
     <div className="countries-container" style={{backgroundColor: "#231D15"}}>
       {countriesData.filter((country) =>
-      country.name.common.toLowerCase().includes(query))
+      country.name.common.toLowerCase().includes(query) || country.region.toLowerCase().includes(query))
       .map((country) => {
         return (
           <CountryCard

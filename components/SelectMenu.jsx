@@ -1,6 +1,6 @@
-export default function SelectMenu() {
+export default function SelectMenu({setQuery}) {
   return (
-    <select className="filter-by-region" style={{backgroundColor: "#98694D", border: "3px solid #553d3a"}}>
+    <select className="filter-by-region" onChange={(e) => setQuery(e.target.value.toLowerCase())} style={{backgroundColor: "#98694D", border: "3px solid #553d3a"}}>
       <option hidden="">Filter By Region</option>
       <option value="Africa">Africa</option>
       <option value="America">America</option>

@@ -20,7 +20,7 @@ const App = () => {
         }}>
         <div className="search-filter-container">
         <SearchBar setQuery={setQuery}/>
-        <SelectMenu />
+        <SelectMenu setQuery={setQuery} />
         </div>
         <CountriesList query={query}/>
         
