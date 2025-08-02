@@ -9,6 +9,7 @@ export default function CountryCard(props) {
   const { population } = props;
   const { region } = props;
   const { capital } = props;
+  const { data } = props;
   return (
     <>
       <Link to={`/${name}`} className="country-card" state={{data}}>
