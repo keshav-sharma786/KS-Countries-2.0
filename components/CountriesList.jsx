@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import CountryCard from "./CountryCard";
+import CountriesListShimmer from "./CountriesListShimmer";
 
 export default function CountriesList(props) {
   
@@ -31,7 +32,11 @@ export default function CountriesList(props) {
   
     return (
     <>
+    
     {/* <input type="text" onChange={(e) => setQuery(e.target.value.toLowerCase())} /> */}
+    {!countriesData.length ? (
+      <CountriesListShimmer />
+    ) : (
     <div className="countries-container" style={{backgroundColor: "#231D15"}}>
       {countriesData.filter((country) =>
       country.name.common.toLowerCase().includes(query))
@@ -48,6 +53,7 @@ export default function CountriesList(props) {
         )
       })}
     </div>
+    )}
     </>
   )
 }
