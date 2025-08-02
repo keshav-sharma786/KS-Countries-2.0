@@ -11,7 +11,7 @@ export default function CountryCard(props) {
   const { capital } = props;
   return (
     <>
-      <Link to={`/${name}`} className="country-card">
+      <Link to={`/${name}`} className="country-card" state={{data}}>
         {/* so above here name.common will be undefined early */}
         <img src={flag} alt="flag" />
         <div className="card-text">
